@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abastecimiento Estratégico</title>
+    <title>VIBRAS POSITIVAS HM - Abastecimiento Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root { --vibras-orange: #FF6B00; --vibras-dark: #1A1A1A; }
@@ -11,18 +11,24 @@
         .text-vibras { color: var(--vibras-orange); }
         .border-vibras { border-color: var(--vibras-orange); }
         .tab-active { border-bottom: 4px solid var(--vibras-orange); color: var(--vibras-orange); font-weight: bold; }
+        .kpi-card { transition: all 0.3s ease; }
+        .kpi-card:hover { transform: translateY(-5px); }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen font-sans text-gray-900">
+<body class="bg-gray-50 min-h-screen font-sans text-gray-900">
 
-    <header class="bg-white shadow-lg p-4 sticky top-0 z-50">
+    <header class="bg-white shadow-lg p-4 sticky top-0 z-50 border-b border-gray-100">
         <div class="container mx-auto flex justify-between items-center">
             <div>
                 <h1 class="text-2xl font-black text-vibras">VIBRAS POSITIVAS HM</h1>
-                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Sistemas de Decisiones Conscientes</p>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">Sistemas de Decisiones Conscientes</p>
             </div>
-            <div class="text-right">
-                <span id="fecha-actual" class="text-sm font-medium text-gray-600"></span>
+            <div class="flex items-center gap-4">
+                <div class="hidden md:block text-right">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase">Estatus Operativo</p>
+                    <p class="text-xs font-bold text-green-500">SISTEMA BLINDADO</p>
+                </div>
+                <span id="fecha-actual" class="bg-gray-100 px-3 py-1 rounded-full text-xs font-bold text-gray-600"></span>
             </div>
         </div>
     </header>
@@ -30,155 +36,164 @@
     <main class="container mx-auto p-4 md:p-8">
         
         <section class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <div class="bg-white p-5 rounded-xl shadow-sm border-t-4 border-red-500">
+            <div class="kpi-card bg-white p-5 rounded-xl shadow-sm border-t-4 border-red-500">
                 <p class="text-xs font-bold text-gray-400 uppercase">Desviación CMV</p>
                 <p class="text-2xl font-black" id="kpi-cmv">1.2%</p>
-                <p class="text-[10px] text-gray-500">Meta: < 1.5% (Evitar fugas)</p>
+                <p class="text-[10px] text-gray-500 font-medium">Tolerancia: < 1.5% [cite: 277]</p>
             </div>
-            <div class="bg-white p-5 rounded-xl shadow-sm border-t-4 border-green-500">
+            <div class="kpi-card bg-white p-5 rounded-xl shadow-sm border-t-4 border-green-500">
                 <p class="text-xs font-bold text-gray-400 uppercase">Nivel OTIF</p>
                 <p class="text-2xl font-black" id="kpi-otif">96%</p>
-                <p class="text-[10px] text-gray-500">Meta: > 95% (Proveedores A)</p>
+                <p class="text-[10px] text-gray-500 font-medium">Meta: > 95% (Tipo A) </p>
             </div>
-            <div class="bg-white p-5 rounded-xl shadow-sm border-t-4 border-blue-500">
+            <div class="kpi-card bg-white p-5 rounded-xl shadow-sm border-t-4 border-blue-500">
                 <p class="text-xs font-bold text-gray-400 uppercase">Días Inv. (DSI)</p>
                 <p class="text-2xl font-black" id="kpi-dsi">6.5</p>
-                <p class="text-[10px] text-gray-500">Días de caja inmovilizada</p>
+                <p class="text-[10px] text-gray-500 font-medium">Meta: 4-7 días [cite: 294]</p>
             </div>
-            <div class="bg-vibras text-white p-5 rounded-xl shadow-sm">
-                <p class="text-xs font-bold uppercase opacity-80">Efectivo Liberado</p>
+            <div class="kpi-card bg-vibras text-white p-5 rounded-xl shadow-md">
+                <p class="text-xs font-bold uppercase opacity-80">Efectivo Líquido</p>
                 <p class="text-2xl font-black">$4.2M</p>
-                <p class="text-[10px] opacity-80">Por optimización de compras</p>
+                <p class="text-[10px] opacity-80 font-medium italic">Capital liberado de inventario [cite: 31]</p>
             </div>
         </section>
 
-        <nav class="flex border-b border-gray-300 mb-8 overflow-x-auto">
-            <button onclick="switchTab('negociacion')" id="btn-negociacion" class="tab-active py-3 px-6 whitespace-nowrap">1. NEGOCIACIÓN</button>
-            <button onclick="switchTab('compras')" id="btn-compras" class="py-3 px-6 text-gray-500 whitespace-nowrap">2. PROCESO DE COMPRAS</button>
-            <button onclick="switchTab('inventario')" id="btn-inventario" class="py-3 px-6 text-gray-500 whitespace-nowrap">3. INVENTARIOS</button>
+        <nav class="flex border-b border-gray-200 mb-8 overflow-x-auto bg-white rounded-t-xl">
+            <button onclick="switchTab('negociacion')" id="btn-negociacion" class="tab-active py-4 px-8 text-sm uppercase tracking-wider">1. Negociación</button>
+            <button onclick="switchTab('compras')" id="btn-compras" class="py-4 px-8 text-sm uppercase tracking-wider text-gray-400">2. Proceso / Muelle</button>
+            <button onclick="switchTab('inventario')" id="btn-inventario" class="py-4 px-8 text-sm uppercase tracking-wider text-gray-400">3. Inventarios / ABC</button>
         </nav>
 
         <div id="tab-negociacion" class="tab-content">
             <div class="grid md:grid-cols-3 gap-6">
-                <div class="md:col-span-2 bg-white p-6 rounded-2xl shadow-sm">
-                    <h3 class="text-xl font-bold mb-4 border-b pb-2 border-vibras">Variables de Selección (CBAT)</h3>
-                    <p class="text-sm mb-4 text-gray-600 italic">"No se compra por precio, se compra por valor estratégico."</p>
-                    <div class="space-y-4">
-                        <div class="flex items-start p-4 bg-gray-50 rounded-lg">
-                            <span class="bg-vibras text-white rounded-full h-6 w-6 flex items-center justify-center text-xs font-bold mr-3 mt-1">1</span>
-                            <div>
-                                <h4 class="font-bold uppercase text-xs">Calidad (El producto debe ser BUENO)</h4>
-                                <p class="text-sm text-gray-600">Rendimiento, vida útil y cumplimiento de FT.</p>
-                            </div>
+                <div class="md:col-span-2 bg-white p-8 rounded-2xl shadow-sm">
+                    <div class="flex justify-between items-center mb-6 border-b pb-4">
+                        <h3 class="text-xl font-bold">Matriz de Selección Estratégica (CBAT) [cite: 109]</h3>
+                        <span class="text-[10px] bg-orange-100 text-vibras px-2 py-1 rounded font-bold">FILTRO INNEGOCIABLE</span>
+                    </div>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="group p-4 border rounded-xl hover:border-vibras transition-colors">
+                            <h4 class="font-black text-xs text-gray-400 uppercase mb-1 italic">Prioridad 1</h4>
+                            <p class="font-bold text-lg">CALIDAD (BUENO) [cite: 119]</p>
+                            <p class="text-sm text-gray-500">Basado en rendimientos y vida útil de Ficha Técnica[cite: 120].</p>
                         </div>
-                        <div class="flex items-start p-4 bg-gray-50 rounded-lg">
-                            <span class="bg-vibras text-white rounded-full h-6 w-6 flex items-center justify-center text-xs font-bold mr-3 mt-1">2</span>
-                            <div>
-                                <h4 class="font-bold uppercase text-xs">Cumplimiento (A TIEMPO Y COMPLETO)</h4>
-                                <p class="text-sm text-gray-600">Evitar roturas de stock que matan la venta.</p>
-                            </div>
+                        <div class="group p-4 border rounded-xl hover:border-vibras transition-colors">
+                            <h4 class="font-black text-xs text-gray-400 uppercase mb-1 italic">Prioridad 2</h4>
+                            <p class="font-bold text-lg">CUMPLIMIENTO (OTIF) [cite: 116]</p>
+                            <p class="text-sm text-gray-500">Completo y a tiempo. Un error aquí mata la venta[cite: 118].</p>
                         </div>
-                        <div class="flex items-start p-4 bg-gray-50 rounded-lg">
-                            <span class="bg-vibras text-white rounded-full h-6 w-6 flex items-center justify-center text-xs font-bold mr-3 mt-1">3</span>
-                            <div>
-                                <h4 class="font-bold uppercase text-xs">Costo (COMPETITIVO)</h4>
-                                <p class="text-sm text-gray-600">Solo se evalúa si los puntos 1 y 2 están garantizados.</p>
-                            </div>
+                        <div class="group p-4 border rounded-xl hover:border-vibras transition-colors">
+                            <h4 class="font-black text-xs text-gray-400 uppercase mb-1 italic">Prioridad 3</h4>
+                            <p class="font-bold text-lg">COSTO (COMPETITIVO) [cite: 114]</p>
+                            <p class="text-sm text-gray-500">Solo válido si calidad y cumplimiento están cubiertos[cite: 115].</p>
                         </div>
                     </div>
                 </div>
-                <div class="bg-vibras text-white p-6 rounded-2xl shadow-lg">
-                    <h3 class="font-bold mb-4 text-lg">Ciclo SERA</h3>
-                    <ul class="space-y-4">
-                        <li class="border-l-2 border-white pl-3 text-sm"><strong>S</strong>eguimiento</li>
-                        <li class="border-l-2 border-white pl-3 text-sm"><strong>E</strong>valuación</li>
-                        <li class="border-l-2 border-white pl-3 text-sm"><strong>R</strong>etroalimentación</li>
-                        <li class="border-l-2 border-white pl-3 text-sm"><strong>A</strong>compañamiento</li>
-                    </ul>
+                <div class="space-y-4">
+                    <div class="bg-vibras text-white p-6 rounded-2xl shadow-lg">
+                        <h3 class="font-bold mb-4 text-lg border-b border-orange-400 pb-2">Ciclo SERA [cite: 138]</h3>
+                        <div class="space-y-4">
+                            <div class="text-sm font-medium">1. Seguimiento 📈</div>
+                            <div class="text-sm font-medium">2. Evaluación ⭐</div>
+                            <div class="text-sm font-medium">3. Retroalimentación 💬</div>
+                            <div class="text-sm font-medium">4. Acompañamiento 🤝</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 text-white p-6 rounded-2xl shadow-lg">
+                        <h3 class="font-bold mb-2 text-sm text-vibras">Estrategia Ganar-Ganar</h3>
+                        <p class="text-[10px] leading-relaxed opacity-70">El cumplimiento es la única moneda para garantizar volumen y liquidez[cite: 165].</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div id="tab-compras" class="tab-content hidden">
-            <div class="bg-white p-6 rounded-2xl shadow-sm mb-6">
-                <h3 class="text-xl font-bold mb-6 text-center">Protocolo de Dos Fases (Antifalla)</h3>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="border-r border-gray-100 pr-4">
-                        <h4 class="font-black text-vibras mb-4">FASE I: ARQUITECTURA</h4>
-                        <ol class="space-y-4 text-sm">
-                            <li><strong>1. Gobernanza:</strong> Segregación de funciones.</li>
-                            <li><strong>2. Estructuración:</strong> Parametrizar ERP (Costo vs Unidad).</li>
-                            <li><strong>3. Estandarización:</strong> Fichas Técnicas (FT) innegociables.</li>
-                        </ol>
+        <div id="tab-compras" class="tab-content hidden animate-fade-in">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-8 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold mb-6 text-blue-600 flex items-center gap-2">
+                        <span>Recepcionar (Auditoría en Muelle) [cite: 395]</span>
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase text-gray-400 mb-1">Peso Factura (kg)</label>
+                            <input type="number" id="peso-factura" class="w-full p-3 bg-gray-50 border rounded-lg outline-none focus:border-blue-500" placeholder="0.00">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase text-gray-400 mb-1">Peso Báscula Real (kg) </label>
+                            <input type="number" id="peso-bascula" class="w-full p-3 bg-gray-50 border rounded-lg outline-none focus:border-blue-500" placeholder="0.00">
+                        </div>
+                        <div id="alerta-muelle" class="hidden p-4 rounded-lg bg-red-50 border border-red-200">
+                            <p class="text-xs font-bold text-red-600">❌ MERMA DETECTADA: Generar reclamación inmediata.</p>
+                        </div>
+                        <button onclick="validarMuelle()" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition-all">Validar Recepción [cite: 397]</button>
                     </div>
-                    <div>
-                        <h4 class="font-black text-blue-600 mb-4">FASE II: EJECUCIÓN</h4>
-                        <ol class="space-y-4 text-sm">
-                            <li><strong>1. Solicitar:</strong> Proyección de Ventas + Stock - Real.</li>
-                            <li><strong>2. Emitir OC:</strong> Documento legal de trazabilidad.</li>
-                            <li><strong>3. Recepcionar:</strong> Pesaje técnico en muelle.</li>
-                            <li><strong>4. Conciliar:</strong> Cruce OC vs FT vs Factura.</li>
-                        </ol>
-                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-l-8 border-gray-100">
+                    <h4 class="font-black text-vibras mb-6 uppercase text-sm italic">Arquitectura & Estrategia [cite: 174]</h4>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <span class="text-vibras font-black italic">01</span>
+                            <div>
+                                <p class="text-sm font-bold">Gobernar [cite: 187]</p>
+                                <p class="text-xs text-gray-500">Un único responsable con indicadores atados al CMV[cite: 190].</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-vibras font-black italic">02</span>
+                            <div>
+                                <p class="text-sm font-bold">Estandarizar (FT) [cite: 199]</p>
+                                <p class="text-xs text-gray-500">Fichas técnicas con dimensiones, pesos y % merma[cite: 200].</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
 
         <div id="tab-inventario" class="tab-content hidden">
             <div class="bg-white p-6 rounded-2xl shadow-sm mb-6">
-                <h3 class="text-xl font-bold mb-4">Clasificación ABC Automatizada</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left">
-                        <thead>
-                            <tr class="bg-gray-100 text-xs font-bold">
-                                <th class="p-3">Categoría</th>
-                                <th class="p-3">Impacto Venta</th>
-                                <th class="p-3">Estrategia App</th>
-                                <th class="p-3">Frecuencia Conteo</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-sm">
-                            <tr class="border-b">
-                                <td class="p-3 font-bold text-red-600">TIPO A</td>
-                                <td class="p-3">+80%</td>
-                                <td class="p-3">SIN FALTA - Control estricto</td>
-                                <td class="p-3">Diario / Semanal</td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="p-3 font-bold text-blue-600">TIPO B</td>
-                                <td class="p-3">15%</td>
-                                <td class="p-3">Evitar que falte</td>
-                                <td class="p-3">Quincenal</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-bold text-green-600">TIPO C</td>
-                                <td class="p-3">5%</td>
-                                <td class="p-3">Pueden faltar</td>
-                                <td class="p-3">Mensual</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold">Estrategia ABC: Enfoque en lo que Mueve la Caja [cite: 44]</h3>
+                    <p class="text-[10px] text-gray-400 font-bold uppercase italic">Regla 80/20 [cite: 74]</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div class="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-xl">
+                        <p class="font-black text-red-600">TIPO A (+80%) [cite: 79]</p>
+                        <p class="text-[10px] font-bold uppercase text-red-400">SIN FALTA [cite: 85]</p>
+                    </div>
+                    <div class="p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-xl">
+                        <p class="font-black text-blue-600">TIPO B (15%) [cite: 77]</p>
+                        <p class="text-[10px] font-bold uppercase text-blue-400">EVITAR FALTANTE [cite: 84]</p>
+                    </div>
+                    <div class="p-4 bg-green-50 border-l-4 border-green-500 rounded-r-xl">
+                        <p class="font-black text-green-600">TIPO C (5%) [cite: 75]</p>
+                        <p class="text-[10px] font-bold uppercase text-green-400">PUEDEN FALTAR [cite: 83]</p>
+                    </div>
                 </div>
             </div>
             
-            <div class="bg-gray-800 text-white p-6 rounded-2xl shadow-xl">
-                <h3 class="font-bold text-lg mb-4 text-vibras">Calculadora de Pedido Consciente</h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold mb-1">Proyección Venta (un)</label>
-                        <input type="number" id="calc-ventas" class="w-full bg-gray-700 p-2 rounded text-sm outline-none" value="100">
+            <div class="bg-gray-900 text-white p-8 rounded-3xl shadow-2xl">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-8 w-1 bg-vibras"></div>
+                    <h3 class="font-bold text-lg uppercase tracking-widest">Pedido Consciente (Matemática Pura) [cite: 381]</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-[10px] uppercase font-bold text-gray-500">Proyección Ventas (un)</label>
+                        <input type="number" id="calc-ventas" class="w-full bg-gray-800 border border-gray-700 p-4 rounded-xl text-lg outline-none focus:border-vibras" value="100">
                     </div>
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold mb-1">Inventario Real</label>
-                        <input type="number" id="calc-real" class="w-full bg-gray-700 p-2 rounded text-sm outline-none" value="20">
+                    <div class="space-y-2">
+                        <label class="text-[10px] uppercase font-bold text-gray-400">Inventario Real (un)</label>
+                        <input type="number" id="calc-real" class="w-full bg-gray-800 border border-gray-700 p-4 rounded-xl text-lg outline-none focus:border-vibras" value="20">
                     </div>
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold mb-1">Stock Seguridad</label>
-                        <input type="number" id="calc-ss" class="w-full bg-gray-700 p-2 rounded text-sm outline-none" value="10">
+                    <div class="space-y-2">
+                        <label class="text-[10px] uppercase font-bold text-gray-400">Stock Seguridad (un)</label>
+                        <input type="number" id="calc-ss" class="w-full bg-gray-800 border border-gray-700 p-4 rounded-xl text-lg outline-none focus:border-vibras" value="10">
                     </div>
-                    <div class="bg-vibras p-2 rounded flex flex-col justify-center items-center">
-                        <label class="block text-[10px] uppercase font-bold">Pedido a Realizar</label>
-                        <span id="calc-resultado" class="text-xl font-black">90</span>
+                    <div class="bg-vibras p-6 rounded-2xl flex flex-col justify-center items-center shadow-lg border-4 border-orange-400">
+                        <label class="text-[10px] uppercase font-black mb-1">Generar OC por:</label>
+                        <span id="calc-resultado" class="text-4xl font-black italic">90</span>
+                        <p class="text-[8px] mt-2 font-bold uppercase opacity-60">Basado en Datos Reales [cite: 383]</p>
                     </div>
                 </div>
             </div>
@@ -186,39 +201,61 @@
 
     </main>
 
-    <footer class="bg-gray-900 text-gray-500 p-8 mt-12 text-center border-t-8 border-vibras">
-        <p class="font-bold text-white mb-2">© 2026 VIBRAS POSITIVAS HM</p>
-        <p class="text-xs uppercase tracking-widest">Toda aplicación o proyecto de software que desarrolle incluye los créditos de derechos de autor a nombre de Vibras Positivas.</p>
-        <p class="mt-4 text-[10px]">Basado en metodología de Juan Camilo Jaramillo - Nextratégica</p>
+    <footer class="bg-gray-900 text-gray-500 p-10 mt-20 text-center border-t-8 border-vibras">
+        <div class="container mx-auto">
+            <p class="font-black text-white text-xl mb-4 tracking-tighter italic">VIBRAS POSITIVAS HM</p>
+            <p class="text-[9px] uppercase tracking-[0.4em] max-w-2xl mx-auto leading-relaxed">
+                Toda aplicación o proyecto de software que desarrolle incluye los créditos de derechos de autor a nombre de Vibras Positivas. 
+                Blindando la operación comercial e incrementando el rendimiento del capital[cite: 8].
+            </p>
+            <div class="mt-8 flex justify-center gap-4 text-[10px] font-bold">
+                <span class="text-vibras">JUAN CAMILO JARAMILLO [cite: 9]</span>
+                <span class="text-gray-700">|</span>
+                <span class="text-white">NEXTRATÉGICA [cite: 11]</span>
+            </div>
+        </div>
     </footer>
 
     <script>
-        // Lógica de navegación
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
             document.getElementById('tab-' + tabId).classList.remove('hidden');
             
             document.querySelectorAll('nav button').forEach(b => {
                 b.classList.remove('tab-active');
-                b.classList.add('text-gray-500');
+                b.classList.add('text-gray-400');
             });
             document.getElementById('btn-' + tabId).classList.add('tab-active');
+            document.getElementById('btn-' + tabId).classList.remove('text-gray-400');
         }
 
-        // Lógica Matemática de la Calculadora de Pedido
+        // Lógica de Validación de Muelle
+        function validarMuelle() {
+            const factura = parseFloat(document.getElementById('peso-factura').value) || 0;
+            const bascula = parseFloat(document.getElementById('peso-bascula').value) || 0;
+            const alerta = document.getElementById('alerta-muelle');
+            
+            if(bascula < factura) {
+                alerta.classList.remove('hidden');
+            } else {
+                alerta.classList.add('hidden');
+            }
+        }
+
+        // Lógica Matemática de la Calculadora (Fórmula PDF)
         const inputs = ['calc-ventas', 'calc-real', 'calc-ss'];
         inputs.forEach(id => {
             document.getElementById(id).addEventListener('input', () => {
                 const v = parseFloat(document.getElementById('calc-ventas').value) || 0;
                 const r = parseFloat(document.getElementById('calc-real').value) || 0;
                 const ss = parseFloat(document.getElementById('calc-ss').value) || 0;
-                // FÓRMULA DEL PDF: Proyección + Stock Seguridad - Inventario Real
+                // Proyección + Stock Seguridad - Inventario Real [cite: 383]
                 const res = Math.max(0, (v + ss) - r);
                 document.getElementById('calc-resultado').innerText = res;
             });
         });
 
-        document.getElementById('fecha-actual').innerText = new Date().toLocaleDateString();
+        document.getElementById('fecha-actual').innerText = new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     </script>
 </body>
 </html>
